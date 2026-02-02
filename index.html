@@ -2592,8 +2592,8 @@
         .project-modal {
             background: white;
             width: 100%;
-            max-width: 700px;
-            max-height: 90vh;
+            max-width: 950px;
+            max-height: 95vh;
             border-radius: var(--radius-lg);
             overflow: hidden;
             animation: modalSlideIn 0.3s ease;
@@ -2692,30 +2692,6 @@
         }
 
         /* レスポンシブ対応 */
-        @media (max-width: 768px) {
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .search-row {
-                flex-direction: column;
-            }
-
-            .search-row .search-input-wrapper {
-                width: 100%;
-            }
-
-            .project-modal {
-                max-height: 95vh;
-                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-            }
-
-            .project-modal-overlay {
-                align-items: flex-end;
-                padding: 0;
-            }
-        }
-
         /* ===== モーダルタブ ===== */
         .modal-tabs {
             display: flex;
@@ -2822,17 +2798,17 @@
         .gantt-timeline {
             display: flex;
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: 8px;
-            padding-left: 180px;
+            margin-bottom: 12px;
+            padding-left: 216px;
         }
 
         .gantt-month {
             flex: 1;
-            min-width: 50px;
+            min-width: 60px;
             text-align: center;
-            font-size: 11px;
+            font-size: 13px;
             color: var(--text-secondary);
-            padding: 8px 0;
+            padding: 10px 0;
             border-left: 1px solid var(--border-light);
         }
 
@@ -2853,16 +2829,16 @@
         .gantt-row {
             display: flex;
             align-items: center;
-            min-height: 40px;
-            margin-bottom: 4px;
+            min-height: 48px;
+            margin-bottom: 6px;
         }
 
         .gantt-row-label {
-            width: 180px;
+            width: 200px;
             flex-shrink: 0;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-primary);
-            padding-right: 12px;
+            padding-right: 16px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -2870,7 +2846,7 @@
 
         .gantt-row-track {
             flex: 1;
-            height: 28px;
+            height: 36px;
             position: relative;
             background: var(--bg-color);
             border-radius: 4px;
@@ -2878,23 +2854,30 @@
 
         .gantt-bar {
             position: absolute;
-            height: 24px;
+            height: 32px;
             top: 2px;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 13px;
             color: white;
             font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            min-width: 20px;
+            cursor: grab;
+            transition: box-shadow 0.2s, transform 0.1s;
+            min-width: 30px;
+            user-select: none;
         }
 
         .gantt-bar:hover {
-            transform: scaleY(1.1);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .gantt-bar.dragging {
+            cursor: grabbing;
+            opacity: 0.9;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .gantt-bar.pending {
@@ -2913,7 +2896,33 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            padding: 0 8px;
+            padding: 0 24px;
+            pointer-events: none;
+            font-size: 12px;
+        }
+
+        /* ドラッグハンドル（左右のリサイズ用） */
+        .gantt-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            cursor: ew-resize;
+            z-index: 10;
+        }
+
+        .gantt-handle:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .gantt-handle-left {
+            left: 0;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .gantt-handle-right {
+            right: 0;
+            border-radius: 0 4px 4px 0;
         }
 
         .gantt-today-line {
@@ -3085,27 +3094,6 @@
             grid-template-columns: 1fr 120px 120px 40px;
             gap: 8px;
             margin-bottom: 8px;
-        }
-
-        @media (max-width: 600px) {
-            .milestone-item {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
-
-            .milestone-form-item {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
-
-            .gantt-timeline {
-                padding-left: 120px;
-            }
-
-            .gantt-row-label {
-                width: 120px;
-                font-size: 11px;
-            }
         }
     </style>
     <!-- Supabase JavaScript Client -->
@@ -5120,12 +5108,15 @@
                 html += `
                     <div class="gantt-row">
                         <div class="gantt-row-label" title="${m.name}">${m.name}</div>
-                        <div class="gantt-row-track">
+                        <div class="gantt-row-track" data-milestone-id="${m.id}">
                             <div class="gantt-bar ${m.status}"
+                                 data-milestone-id="${m.id}"
                                  style="left: ${startPos}%; width: ${Math.max(duration, 2)}%;"
                                  onmouseenter="showGanttTooltip(event, '${m.name}', '${m.startDate} 〜 ${m.endDate}', '${statusLabel}')"
                                  onmouseleave="hideGanttTooltip()">
+                                <div class="gantt-handle gantt-handle-left" data-handle="left"></div>
                                 <span class="gantt-bar-label">${m.name}</span>
+                                <div class="gantt-handle gantt-handle-right" data-handle="right"></div>
                             </div>
                         </div>
                     </div>
@@ -5134,6 +5125,17 @@
 
             html += `</div></div>`;
             container.innerHTML = html;
+
+            // ガントチャート情報をグローバルに保持（ドラッグ計算用）
+            window.ganttInfo = {
+                minDate: minDate,
+                maxDate: maxDate,
+                totalDays: totalDays,
+                projectId: project.id
+            };
+
+            // ドラッグイベントを設定
+            initGanttDrag();
         }
 
         // ガントチャートツールチップ表示
@@ -5149,6 +5151,145 @@
         // ガントチャートツールチップ非表示
         function hideGanttTooltip() {
             document.getElementById('ganttTooltip').classList.remove('show');
+        }
+
+        // ガントチャートドラッグ機能
+        function initGanttDrag() {
+            const bars = document.querySelectorAll('.gantt-bar');
+
+            bars.forEach(bar => {
+                const leftHandle = bar.querySelector('.gantt-handle-left');
+                const rightHandle = bar.querySelector('.gantt-handle-right');
+
+                // 左ハンドル（開始日変更）
+                leftHandle.addEventListener('mousedown', (e) => {
+                    e.stopPropagation();
+                    startGanttResize(e, bar, 'left');
+                });
+
+                // 右ハンドル（終了日変更）
+                rightHandle.addEventListener('mousedown', (e) => {
+                    e.stopPropagation();
+                    startGanttResize(e, bar, 'right');
+                });
+
+                // バー全体のドラッグ（期間移動）
+                bar.addEventListener('mousedown', (e) => {
+                    if (e.target.classList.contains('gantt-handle')) return;
+                    startGanttDrag(e, bar);
+                });
+            });
+        }
+
+        // リサイズ開始
+        function startGanttResize(e, bar, handle) {
+            e.preventDefault();
+            hideGanttTooltip();
+
+            const track = bar.parentElement;
+            const trackRect = track.getBoundingClientRect();
+            const milestoneId = parseInt(bar.dataset.milestoneId);
+
+            const initialLeft = parseFloat(bar.style.left);
+            const initialWidth = parseFloat(bar.style.width);
+            const startX = e.clientX;
+
+            bar.classList.add('dragging');
+
+            const onMouseMove = (moveEvent) => {
+                const deltaX = moveEvent.clientX - startX;
+                const deltaPercent = (deltaX / trackRect.width) * 100;
+
+                if (handle === 'left') {
+                    const newLeft = Math.max(0, Math.min(initialLeft + deltaPercent, initialLeft + initialWidth - 2));
+                    const newWidth = initialWidth - (newLeft - initialLeft);
+                    bar.style.left = newLeft + '%';
+                    bar.style.width = Math.max(newWidth, 2) + '%';
+                } else {
+                    const newWidth = Math.max(2, Math.min(initialWidth + deltaPercent, 100 - initialLeft));
+                    bar.style.width = newWidth + '%';
+                }
+            };
+
+            const onMouseUp = () => {
+                bar.classList.remove('dragging');
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+
+                // 日付を更新
+                updateMilestoneDates(milestoneId, parseFloat(bar.style.left), parseFloat(bar.style.width));
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+
+        // ドラッグ開始（全体移動）
+        function startGanttDrag(e, bar) {
+            e.preventDefault();
+            hideGanttTooltip();
+
+            const track = bar.parentElement;
+            const trackRect = track.getBoundingClientRect();
+            const milestoneId = parseInt(bar.dataset.milestoneId);
+
+            const initialLeft = parseFloat(bar.style.left);
+            const barWidth = parseFloat(bar.style.width);
+            const startX = e.clientX;
+
+            bar.classList.add('dragging');
+
+            const onMouseMove = (moveEvent) => {
+                const deltaX = moveEvent.clientX - startX;
+                const deltaPercent = (deltaX / trackRect.width) * 100;
+                const newLeft = Math.max(0, Math.min(initialLeft + deltaPercent, 100 - barWidth));
+                bar.style.left = newLeft + '%';
+            };
+
+            const onMouseUp = () => {
+                bar.classList.remove('dragging');
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+
+                // 日付を更新
+                updateMilestoneDates(milestoneId, parseFloat(bar.style.left), parseFloat(bar.style.width));
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+
+        // マイルストーンの日付を更新
+        function updateMilestoneDates(milestoneId, leftPercent, widthPercent) {
+            if (!window.ganttInfo || !selectedProject) return;
+
+            const { minDate, totalDays, projectId } = window.ganttInfo;
+
+            // パーセントから日数を計算
+            const startDays = (leftPercent / 100) * totalDays;
+            const durationDays = (widthPercent / 100) * totalDays;
+
+            // 新しい日付を計算
+            const newStartDate = new Date(minDate.getTime() + startDays * 24 * 60 * 60 * 1000);
+            const newEndDate = new Date(minDate.getTime() + (startDays + durationDays) * 24 * 60 * 60 * 1000);
+
+            // 日付をフォーマット
+            const formatDate = (d) => {
+                return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
+            };
+
+            // プロジェクトのマイルストーンを更新
+            const project = projects.find(p => p.id === projectId);
+            if (project && project.milestones) {
+                const milestone = project.milestones.find(m => m.id === milestoneId);
+                if (milestone) {
+                    milestone.startDate = formatDate(newStartDate);
+                    milestone.endDate = formatDate(newEndDate);
+
+                    // ツールチップを更新するために再描画
+                    renderGanttChart(project);
+                }
+            }
         }
 
         // プロジェクト詳細モーダルを閉じる
