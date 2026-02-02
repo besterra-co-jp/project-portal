@@ -2277,6 +2277,444 @@
             font-size: 12px;
             color: var(--text-light);
         }
+
+        /* ===== 新UI: グリッドレイアウト ===== */
+        .project-grid-layout {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        .project-grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .project-grid-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .view-toggle-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .view-toggle-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: white;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+
+        .view-toggle-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .view-toggle-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* 検索・タグフィルターセクション */
+        .search-tags-section {
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .search-row .search-input-wrapper {
+            flex: 1;
+        }
+
+        .tag-filter-btn {
+            padding: 12px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+        }
+
+        .tag-filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .tag-filter-btn.has-selection {
+            background: var(--accent-light);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* タグドロップダウン */
+        .tag-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+            padding: 8px 0;
+            margin-top: 4px;
+        }
+
+        .tag-dropdown.show {
+            display: block;
+            animation: dropdownFade 0.15s ease;
+        }
+
+        .tag-dropdown-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            transition: background 0.15s;
+        }
+
+        .tag-dropdown-item:hover {
+            background: var(--bg-color);
+        }
+
+        .tag-dropdown-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .tag-color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* 選択中タグバッジ */
+        .selected-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .selected-tag-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .selected-tag-badge:hover {
+            opacity: 0.8;
+        }
+
+        .selected-tag-badge .remove-tag {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        /* プロジェクトグリッド */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .project-grid-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .project-grid-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .project-grid-card .card-image {
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            position: relative;
+        }
+
+        .project-grid-card .card-body {
+            padding: 20px;
+        }
+
+        .project-grid-card .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .project-tag-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .project-grid-card .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .project-grid-card:hover .card-title {
+            color: var(--primary-color);
+        }
+
+        .project-grid-card .card-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-grid-card .card-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .project-grid-card .meta-info {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* タグ別グルーピング表示 */
+        .tag-group-section {
+            margin-bottom: 32px;
+        }
+
+        .tag-group-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tag-group-header .tag-label {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .tag-group-header .tag-count {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* プロジェクト詳細モーダル */
+        .project-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .project-modal-overlay.show {
+            display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .project-modal {
+            background: white;
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            animation: modalSlideIn 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .project-modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-warm);
+        }
+
+        .project-modal-header .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .project-modal-header .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            flex: 1;
+            margin-right: 16px;
+        }
+
+        .project-modal-header .modal-close-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .project-modal-header .modal-close-btn:hover {
+            background: var(--border-color);
+            transform: rotate(90deg);
+        }
+
+        .project-modal-header .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .project-modal-header .modal-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .project-modal-header .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .project-modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .project-modal-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--border-color);
+            background: white;
+        }
+
+        .project-modal-footer .btn {
+            width: 100%;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-row {
+                flex-direction: column;
+            }
+
+            .search-row .search-input-wrapper {
+                width: 100%;
+            }
+
+            .project-modal {
+                max-height: 95vh;
+                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            }
+
+            .project-modal-overlay {
+                align-items: flex-end;
+                padding: 0;
+            }
+        }
     </style>
     <!-- Supabase JavaScript Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -2337,63 +2775,84 @@
         </header>
 
         <!-- ホームページ（Indeed風2カラムレイアウト） -->
-        <div class="two-column-layout page" id="homePage">
-            <!-- 左カラム：検索・フィルター・プロジェクト一覧 -->
-            <div class="left-column">
-                <!-- 統計カード -->
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalProjects">12</div>
-                        <div class="stat-label">全プロジェクト</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="myProjectsCount">3</div>
-                        <div class="stat-label">参加中</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="recruiting">5</div>
-                        <div class="stat-label">募集中</div>
-                    </div>
-                </div>
-
-                <!-- 検索・フィルター -->
-                <div class="search-filter-section">
-                    <div class="search-input-wrapper">
-                        <span class="search-icon">🔎</span>
-                        <input type="text" class="search-input" placeholder="プロジェクトを検索..." id="searchInput">
-                    </div>
-                    <div class="filter-tabs">
-                        <div class="filter-tab active" data-tab="company" onclick="switchTab('company')">全社</div>
-                        <div class="filter-tab" data-tab="department" onclick="switchTab('department')">部署</div>
-                        <div class="filter-tab" data-tab="other" onclick="switchTab('other')">その他</div>
-                    </div>
-                </div>
-
-                <!-- プロジェクト一覧 -->
-                <div class="project-list-container">
-                    <div class="project-list" id="projectList">
-                        <!-- JavaScriptで動的に生成 -->
-                    </div>
+        <!-- ホームページ（プロジェクト一覧 - グリッド表示） -->
+        <div class="project-grid-layout page active" id="homePage">
+            <!-- ヘッダー -->
+            <div class="project-grid-header">
+                <h2>プロジェクト一覧</h2>
+                <div class="view-toggle-btns">
+                    <button class="view-toggle-btn active" onclick="setViewMode('grid')" data-view="grid">一覧表示</button>
+                    <button class="view-toggle-btn" onclick="setViewMode('grouped')" data-view="grouped">タグ別</button>
                 </div>
             </div>
 
-            <!-- 右カラム：プロジェクト詳細パネル -->
-            <div class="right-column">
-                <div class="detail-panel" id="detailPanel">
-                    <div class="detail-panel-empty" id="detailPanelEmpty">
-                        <div class="empty-icon">📋</div>
-                        <div class="empty-text">プロジェクトを選択してください</div>
-                        <div class="empty-hint">左のリストからプロジェクトをクリックすると詳細が表示されます</div>
+            <!-- 統計カード -->
+            <div class="stats-row" style="margin-bottom: 20px;">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalProjects">12</div>
+                    <div class="stat-label">全プロジェクト</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="myProjectsCount">3</div>
+                    <div class="stat-label">参加中</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="recruiting">5</div>
+                    <div class="stat-label">募集中</div>
+                </div>
+            </div>
+
+            <!-- 検索・タグフィルターセクション -->
+            <div class="search-tags-section">
+                <div class="search-row">
+                    <div class="search-input-wrapper">
+                        <span class="search-icon">🔎</span>
+                        <input type="text" class="search-input" placeholder="プロジェクトを検索..." id="searchInput" oninput="renderProjectsGrid()">
                     </div>
-                    <div class="detail-panel-content" id="detailPanelContent" style="display: none;">
-                        <!-- JavaScriptで動的に生成 -->
+                    <div style="position: relative;">
+                        <button class="tag-filter-btn" id="tagFilterBtn" onclick="toggleTagDropdown()">
+                            <span>🏷️</span>
+                            <span>タグで絞り込み</span>
+                        </button>
+                        <div class="tag-dropdown" id="tagDropdown">
+                            <!-- タグリストはJavaScriptで生成 -->
+                        </div>
                     </div>
+                </div>
+                <div class="filter-tabs" style="margin-bottom: 16px;">
+                    <div class="filter-tab active" data-tab="all" onclick="switchTab('all')">すべて</div>
+                    <div class="filter-tab" data-tab="company" onclick="switchTab('company')">全社</div>
+                    <div class="filter-tab" data-tab="department" onclick="switchTab('department')">部署</div>
+                    <div class="filter-tab" data-tab="other" onclick="switchTab('other')">その他</div>
+                </div>
+                <div class="selected-tags" id="selectedTagsContainer">
+                    <!-- 選択中タグがここに表示される -->
+                </div>
+            </div>
+
+            <!-- プロジェクトグリッド -->
+            <div id="projectGridContainer">
+                <!-- JavaScriptで動的に生成 -->
+            </div>
+        </div>
+
+        <!-- プロジェクト詳細モーダル -->
+        <div class="project-modal-overlay" id="projectModalOverlay" onclick="closeProjectModal(event)">
+            <div class="project-modal" onclick="event.stopPropagation()">
+                <div class="project-modal-header" id="projectModalHeader">
+                    <!-- JavaScriptで動的に生成 -->
+                </div>
+                <div class="project-modal-body" id="projectModalBody">
+                    <!-- JavaScriptで動的に生成 -->
+                </div>
+                <div class="project-modal-footer" id="projectModalFooter">
+                    <!-- JavaScriptで動的に生成 -->
                 </div>
             </div>
         </div>
 
         <!-- マイページ -->
-        <main class="main-content page active" id="myPage">
+        <main class="main-content page" id="myPage">
             <h2 style="margin-bottom: 20px;">マイページ</h2>
 
             <div class="stats-section">
@@ -2464,6 +2923,14 @@
 
         <!-- フッターナビ -->
         <nav class="bottom-nav">
+            <div class="nav-item active" id="homeNavItem" onclick="showPage('home')">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">ホーム</span>
+            </div>
+            <div class="nav-item" id="myNavItem" onclick="showPage('my')">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">マイページ</span>
+            </div>
             <div class="nav-item" id="managerNavItem" style="display: none;" onclick="showPage('manager')">
                 <span class="nav-icon">📋</span>
                 <span class="nav-label">上長承認</span>
@@ -3232,6 +3699,21 @@
             'none': '所属部署なし'
         };
 
+        // タグマスタ定義
+        const projectTags = [
+            { id: 'tech', label: '技術', color: '#4a7c9b' },
+            { id: 'business', label: 'ビジネス', color: '#2e7d5a' },
+            { id: 'hr', label: '人事・育成', color: '#b8860b' },
+            { id: 'safety', label: '安全', color: '#c0392b' },
+            { id: 'culture', label: '社内文化', color: '#8b5cf6' },
+            { id: 'sports', label: 'スポーツ', color: '#06b6d4' },
+            { id: 'volunteer', label: 'ボランティア', color: '#f97316' }
+        ];
+
+        // 選択中のタグフィルター
+        let selectedTags = [];
+        let viewMode = 'grid'; // 'grid' or 'grouped'
+
         // プロジェクトデータ
         let projects = [
             {
@@ -3247,6 +3729,7 @@
                 startDate: '2024/01/01',
                 endDate: '2024/12/31',
                 skills: ['プロジェクト管理', 'システム設計', 'データ分析'],
+                tags: ['tech', 'business'],
                 members: [
                     { name: '山田太郎', role: 'リーダー' },
                     { name: '佐藤花子', role: 'サブリーダー' },
@@ -3275,6 +3758,7 @@
                 startDate: '2024/02/01',
                 endDate: '2025/03/31',
                 skills: ['事業企画', '市場分析', 'プレゼンテーション'],
+                tags: ['business'],
                 members: [
                     { name: '田中次郎', role: 'リーダー' },
                     { name: '高橋美咲', role: 'メンバー' },
@@ -3300,6 +3784,7 @@
                 startDate: '2023/10/01',
                 endDate: '2024/09/30',
                 skills: ['AI/ML', 'プロンプトエンジニアリング', '業務改善'],
+                tags: ['tech'],
                 members: [
                     { name: '伊藤健', role: 'リーダー' },
                     { name: '渡辺明', role: 'テックリード' },
@@ -3323,6 +3808,7 @@
                 startDate: '2024/01/01',
                 endDate: '2025/12/31',
                 skills: ['環境管理', 'データ収集', '報告書作成'],
+                tags: ['business', 'culture'],
                 members: [
                     { name: '木村さくら', role: 'リーダー' },
                 ],
@@ -3345,6 +3831,7 @@
                 startDate: '2023/10/01',
                 endDate: '2024/06/30',
                 skills: ['業務分析', 'RPA', 'ドキュメント作成'],
+                tags: ['tech', 'business'],
                 members: [
                     { name: '中村雄太', role: 'リーダー' },
                     { name: '小林優子', role: 'メンバー' },
@@ -3369,6 +3856,7 @@
                 startDate: '2024/04/01',
                 endDate: '2025/03/31',
                 skills: ['コーチング', 'コミュニケーション', '指導経験'],
+                tags: ['hr', 'culture'],
                 members: [],
                 progress: [],
                 comments: []
@@ -3386,6 +3874,7 @@
                 startDate: '2023/07/01',
                 endDate: '2024/06/30',
                 skills: ['安全管理', '教育企画', 'リスクアセスメント'],
+                tags: ['safety'],
                 members: [],
                 progress: [],
                 comments: []
@@ -3403,6 +3892,7 @@
                 startDate: '2024/01/01',
                 endDate: '2024/12/31',
                 skills: ['データ分析', '顧客対応', '企画立案'],
+                tags: ['business'],
                 members: [],
                 progress: [],
                 comments: []
@@ -3420,6 +3910,7 @@
                 startDate: '通年',
                 endDate: '-',
                 skills: [],
+                tags: ['sports', 'culture'],
                 members: [],
                 progress: [],
                 comments: [
@@ -3439,6 +3930,7 @@
                 startDate: '通年',
                 endDate: '-',
                 skills: [],
+                tags: ['sports'],
                 members: [],
                 progress: [],
                 comments: []
@@ -3456,6 +3948,7 @@
                 startDate: '通年',
                 endDate: '-',
                 skills: [],
+                tags: ['culture'],
                 members: [],
                 progress: [],
                 comments: []
@@ -3473,6 +3966,7 @@
                 startDate: '通年',
                 endDate: '-',
                 skills: [],
+                tags: ['volunteer', 'culture'],
                 members: [],
                 progress: [],
                 comments: []
@@ -3525,7 +4019,7 @@
         // 現在のユーザー情報
         let currentUser = null;
         let isAdmin = false;
-        let currentTab = 'company';
+        let currentTab = 'all';
         let currentAdminPanel = 'projects';
         let selectedProject = null;
         let deleteTargetId = null;
@@ -3656,84 +4150,403 @@
             currentTab = tab;
             document.querySelectorAll('.tab, .filter-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll(`[data-tab="${tab}"]`).forEach(t => t.classList.add('active'));
-            renderProjects();
+            renderProjectsGrid();
         }
 
-        // プロジェクト一覧の表示（Indeed風コンパクトカード）
-        function renderProjects() {
-            const container = document.getElementById('projectList');
+        // ===== 新UI: グリッド表示関連機能 =====
+
+        // 表示モード切り替え
+        function setViewMode(mode) {
+            viewMode = mode;
+            document.querySelectorAll('.view-toggle-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.view === mode);
+            });
+            renderProjectsGrid();
+        }
+
+        // タグドロップダウンの表示切り替え
+        function toggleTagDropdown() {
+            const dropdown = document.getElementById('tagDropdown');
+            dropdown.classList.toggle('show');
+
+            if (dropdown.classList.contains('show')) {
+                renderTagDropdown();
+            }
+        }
+
+        // タグドロップダウンの内容を生成
+        function renderTagDropdown() {
+            const container = document.getElementById('tagDropdown');
+            container.innerHTML = projectTags.map(tag => `
+                <label class="tag-dropdown-item">
+                    <input type="checkbox" ${selectedTags.includes(tag.id) ? 'checked' : ''}
+                           onchange="toggleTagFilter('${tag.id}')">
+                    <span class="tag-color-dot" style="background-color: ${tag.color}"></span>
+                    <span>${tag.label}</span>
+                </label>
+            `).join('');
+        }
+
+        // タグフィルターのトグル
+        function toggleTagFilter(tagId) {
+            const idx = selectedTags.indexOf(tagId);
+            if (idx === -1) {
+                selectedTags.push(tagId);
+            } else {
+                selectedTags.splice(idx, 1);
+            }
+            updateTagFilterButton();
+            renderSelectedTags();
+            renderProjectsGrid();
+        }
+
+        // 選択中タグを削除
+        function removeTagFilter(tagId) {
+            const idx = selectedTags.indexOf(tagId);
+            if (idx !== -1) {
+                selectedTags.splice(idx, 1);
+            }
+            updateTagFilterButton();
+            renderSelectedTags();
+            renderTagDropdown();
+            renderProjectsGrid();
+        }
+
+        // タグフィルターボタンの状態を更新
+        function updateTagFilterButton() {
+            const btn = document.getElementById('tagFilterBtn');
+            if (selectedTags.length > 0) {
+                btn.classList.add('has-selection');
+                btn.innerHTML = `<span>🏷️</span><span>タグ (${selectedTags.length})</span>`;
+            } else {
+                btn.classList.remove('has-selection');
+                btn.innerHTML = `<span>🏷️</span><span>タグで絞り込み</span>`;
+            }
+        }
+
+        // 選択中タグバッジを表示
+        function renderSelectedTags() {
+            const container = document.getElementById('selectedTagsContainer');
+            container.innerHTML = selectedTags.map(tagId => {
+                const tag = projectTags.find(t => t.id === tagId);
+                if (!tag) return '';
+                return `
+                    <span class="selected-tag-badge" style="background-color: ${tag.color}" onclick="removeTagFilter('${tag.id}')">
+                        ${tag.label}
+                        <span class="remove-tag">×</span>
+                    </span>
+                `;
+            }).join('');
+        }
+
+        // タグのカラーを取得
+        function getTagColor(tagId) {
+            const tag = projectTags.find(t => t.id === tagId);
+            return tag ? tag.color : '#888';
+        }
+
+        // タグのラベルを取得
+        function getTagLabel(tagId) {
+            const tag = projectTags.find(t => t.id === tagId);
+            return tag ? tag.label : tagId;
+        }
+
+        // プロジェクトグリッド表示
+        function renderProjectsGrid() {
+            const container = document.getElementById('projectGridContainer');
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
+            // フィルタリング
             const filteredProjects = projects.filter(p => {
-                const matchesTab = p.category === currentTab;
+                // カテゴリフィルター
+                const matchesTab = currentTab === 'all' || p.category === currentTab;
+                // 検索フィルター
                 const matchesSearch = p.title.toLowerCase().includes(searchQuery) ||
                                      p.description.toLowerCase().includes(searchQuery);
-                return matchesTab && matchesSearch;
+                // タグフィルター (OR検索)
+                const matchesTags = selectedTags.length === 0 ||
+                                   (p.tags && p.tags.some(tag => selectedTags.includes(tag)));
+                return matchesTab && matchesSearch && matchesTags;
             });
 
-            container.innerHTML = filteredProjects.map(project => {
-                const capacityPercent = (project.capacity.current / project.capacity.max) * 100;
+            // 表示モードに応じてレンダリング
+            if (viewMode === 'grouped') {
+                container.innerHTML = renderGroupedProjects(filteredProjects);
+            } else {
+                container.innerHTML = `
+                    <div class="project-grid">
+                        ${filteredProjects.map(p => renderProjectCard(p)).join('')}
+                    </div>
+                `;
+            }
 
-                let categoryClass = '';
-                let categoryLabel = '';
-                if (project.category === 'company') {
-                    categoryClass = 'category-company';
-                    categoryLabel = '全社';
-                } else if (project.category === 'department') {
-                    categoryClass = 'category-department';
-                    categoryLabel = '部署';
-                } else {
-                    categoryClass = 'category-other';
-                    categoryLabel = '社員活動';
-                }
+            // 検索結果が0件の場合
+            if (filteredProjects.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: var(--text-light);">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                        <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">該当するプロジェクトが見つかりませんでした</div>
+                        <div style="font-size: 14px;">検索条件やタグフィルターを変更してみてください</div>
+                    </div>
+                `;
+            }
+        }
 
-                let statusClass = '';
-                let statusLabel = '';
-                if (project.status === 'recruiting') {
-                    statusClass = 'status-recruiting';
-                    statusLabel = '募集中';
-                } else if (project.status === 'ongoing') {
-                    statusClass = 'status-ongoing';
-                    statusLabel = '進行中';
-                } else {
-                    statusClass = 'status-closed';
-                    statusLabel = '終了';
-                }
+        // グルーピング表示
+        function renderGroupedProjects(filteredProjects) {
+            // タグごとにプロジェクトをグルーピング
+            const groups = {};
+            projectTags.forEach(tag => {
+                groups[tag.id] = filteredProjects.filter(p => p.tags && p.tags.includes(tag.id));
+            });
 
-                const isSelected = selectedProject && selectedProject.id === project.id;
+            // タグなしのプロジェクト
+            const noTagProjects = filteredProjects.filter(p => !p.tags || p.tags.length === 0);
 
-                return `
-                    <div class="project-card-compact ${isSelected ? 'selected' : ''}" onclick="showProjectInPanel(${project.id})" data-project-id="${project.id}">
-                        <div class="card-header">
-                            <h3 class="project-title">${project.title}</h3>
-                            <span class="project-category ${categoryClass}">${categoryLabel}</span>
+            let html = '';
+
+            // 各タググループを表示
+            projectTags.forEach(tag => {
+                if (groups[tag.id].length > 0) {
+                    html += `
+                        <div class="tag-group-section">
+                            <div class="tag-group-header">
+                                <span class="tag-label" style="background-color: ${tag.color}">${tag.label}</span>
+                                <span class="tag-count">${groups[tag.id].length}件</span>
+                            </div>
+                            <div class="project-grid">
+                                ${groups[tag.id].map(p => renderProjectCard(p)).join('')}
+                            </div>
                         </div>
-                        <p class="project-description">${project.description}</p>
-                        <div class="card-footer">
-                            <div class="card-meta">
-                                <span class="meta-item">👥 ${project.capacity.current}/${project.capacity.max}人</span>
-                                <span class="meta-item">📅 ${project.endDate}</span>
+                    `;
+                }
+            });
+
+            // タグなしのプロジェクトがあれば表示
+            if (noTagProjects.length > 0) {
+                html += `
+                    <div class="tag-group-section">
+                        <div class="tag-group-header">
+                            <span class="tag-label" style="background-color: #888">タグなし</span>
+                            <span class="tag-count">${noTagProjects.length}件</span>
+                        </div>
+                        <div class="project-grid">
+                            ${noTagProjects.map(p => renderProjectCard(p)).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        // プロジェクトカード生成
+        function renderProjectCard(project) {
+            let statusClass = '';
+            let statusLabel = '';
+            if (project.status === 'recruiting') {
+                statusClass = 'status-recruiting';
+                statusLabel = '募集中';
+            } else if (project.status === 'ongoing') {
+                statusClass = 'status-ongoing';
+                statusLabel = '進行中';
+            } else {
+                statusClass = 'status-closed';
+                statusLabel = '終了';
+            }
+
+            const tagsHtml = (project.tags || []).map(tagId => `
+                <span class="project-tag-badge" style="background-color: ${getTagColor(tagId)}">${getTagLabel(tagId)}</span>
+            `).join('');
+
+            return `
+                <div class="project-grid-card" onclick="openProjectModal(${project.id})">
+                    <div class="card-image">${project.image}</div>
+                    <div class="card-body">
+                        <div class="card-tags">${tagsHtml}</div>
+                        <h3 class="card-title">${project.title}</h3>
+                        <p class="card-description">${project.description}</p>
+                        <div class="card-meta-row">
+                            <div class="meta-info">
+                                <span>👥 ${project.capacity.current}/${project.capacity.max}人</span>
+                                <span>📅 ${project.endDate}</span>
                             </div>
                             <span class="project-status ${statusClass}">${statusLabel}</span>
                         </div>
                     </div>
-                `;
-            }).join('');
-
-            // プロジェクトが存在し、何も選択されていない場合は最初のプロジェクトを自動選択
-            if (filteredProjects.length > 0 && !selectedProject) {
-                showProjectInPanel(filteredProjects[0].id);
-            }
+                </div>
+            `;
         }
 
-        // 詳細パネルをリセット
+        // プロジェクト詳細モーダルを開く
+        function openProjectModal(projectId) {
+            selectedProject = projects.find(p => p.id === projectId);
+            if (!selectedProject) return;
+
+            const capacityPercent = (selectedProject.capacity.current / selectedProject.capacity.max) * 100;
+            const isJoinable = selectedProject.status === 'recruiting' && capacityPercent < 100;
+
+            let statusClass = '';
+            let statusLabel = '';
+            if (selectedProject.status === 'recruiting') {
+                statusClass = 'status-recruiting';
+                statusLabel = '募集中';
+            } else if (selectedProject.status === 'ongoing') {
+                statusClass = 'status-ongoing';
+                statusLabel = '進行中';
+            } else {
+                statusClass = 'status-closed';
+                statusLabel = '終了';
+            }
+
+            // タグHTML
+            const tagsHtml = (selectedProject.tags || []).map(tagId => `
+                <span class="project-tag-badge" style="background-color: ${getTagColor(tagId)}">${getTagLabel(tagId)}</span>
+            `).join('');
+
+            // ヘッダー
+            document.getElementById('projectModalHeader').innerHTML = `
+                <div class="header-top">
+                    <h2 class="modal-title">${selectedProject.title}</h2>
+                    <button class="modal-close-btn" onclick="closeProjectModal(event)">×</button>
+                </div>
+                <div class="modal-tags">${tagsHtml}</div>
+                <div class="modal-meta">
+                    <span class="meta-item">👤 ${selectedProject.leader}</span>
+                    <span class="meta-item">🏢 ${selectedProject.department}</span>
+                    <span class="meta-item project-status ${statusClass}">${statusLabel}</span>
+                </div>
+            `;
+
+            // ボディ
+            document.getElementById('projectModalBody').innerHTML = `
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>期間</label>
+                        <div class="value">${selectedProject.startDate} 〜 ${selectedProject.endDate}</div>
+                    </div>
+                    <div class="info-item">
+                        <label>定員</label>
+                        <div class="value">${selectedProject.capacity.current} / ${selectedProject.capacity.max}人</div>
+                    </div>
+                </div>
+
+                <h4 class="detail-section-title">概要</h4>
+                <p class="description-text">${selectedProject.description}</p>
+
+                ${selectedProject.skills.length > 0 ? `
+                <h4 class="detail-section-title">求めるスキル・経験</h4>
+                <div class="skill-tags">
+                    ${selectedProject.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                </div>
+                ` : ''}
+
+                ${selectedProject.members.length > 0 ? `
+                <h4 class="detail-section-title">メンバー</h4>
+                <div class="members-grid">
+                    ${selectedProject.members.map(m => `
+                        <div class="member-card">
+                            <div class="member-avatar">${m.name.charAt(0)}</div>
+                            <div class="member-info">
+                                <div class="member-name">${m.name}</div>
+                                <div class="member-role">${m.role}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                ${selectedProject.progress.length > 0 ? `
+                <h4 class="detail-section-title">進捗状況</h4>
+                <div class="progress-section" style="margin-bottom: 24px;">
+                    ${selectedProject.progress.map(p => `
+                        <div class="progress-item">
+                            <span>${p.task}</span>
+                            <strong>${p.status}</strong>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                ${selectedProject.comments.length > 0 ? `
+                <h4 class="detail-section-title">コメント・更新情報</h4>
+                <div class="comment-section">
+                    ${selectedProject.comments.map(c => `
+                        <div class="comment-item">
+                            <span class="member-avatar">${c.author.charAt(0)}</span>
+                            <div class="comment-content">
+                                <div class="comment-author">${c.author}</div>
+                                <div class="comment-text">${c.text}</div>
+                                <div class="comment-date">${c.date}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+            `;
+
+            // フッター
+            let buttonHtml = '';
+            if (isJoinable) {
+                buttonHtml = `<button class="btn btn-primary" onclick="applyFromModal()">参加を申請する</button>`;
+            } else if (capacityPercent >= 100) {
+                buttonHtml = `<button class="btn btn-outline" disabled>定員に達しています</button>`;
+            } else {
+                buttonHtml = `<button class="btn btn-outline" disabled>募集終了</button>`;
+            }
+            document.getElementById('projectModalFooter').innerHTML = buttonHtml;
+
+            // モーダル表示
+            document.getElementById('projectModalOverlay').classList.add('show');
+        }
+
+        // プロジェクト詳細モーダルを閉じる
+        function closeProjectModal(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close-btn')) return;
+            document.getElementById('projectModalOverlay').classList.remove('show');
+        }
+
+        // モーダルから参加申請
+        function applyFromModal() {
+            if (!selectedProject || !currentUser) return;
+
+            const newApplication = {
+                id: applications.length + 1,
+                applicant: currentUser.name,
+                applicantId: currentUser.id,
+                projectId: selectedProject.id,
+                projectTitle: selectedProject.title,
+                date: new Date().toLocaleDateString('ja-JP'),
+                status: 'pending'
+            };
+            applications.push(newApplication);
+
+            closeProjectModal({ target: { classList: { contains: () => true } }, currentTarget: {} });
+            document.getElementById('successTitle').textContent = '申請完了';
+            document.getElementById('successMessage').innerHTML = '参加申請を送信しました。<br>承認までしばらくお待ちください。';
+            document.getElementById('successOverlay').style.display = 'flex';
+
+            renderMyPage();
+        }
+
+        // ドキュメント外クリックでドロップダウンを閉じる
+        document.addEventListener('click', function(e) {
+            const tagDropdown = document.getElementById('tagDropdown');
+            const tagFilterBtn = document.getElementById('tagFilterBtn');
+            if (tagDropdown && tagFilterBtn && !tagDropdown.contains(e.target) && !tagFilterBtn.contains(e.target)) {
+                tagDropdown.classList.remove('show');
+            }
+        });
+
+        // ===== 旧UI互換性のためrenderProjects関数を維持 =====
+        // プロジェクト一覧の表示（グリッド表示に変更）
+        function renderProjects() {
+            renderProjectsGrid();
+        }
+
+        // 詳細パネルをリセット（互換性維持）
         function resetDetailPanel() {
             selectedProject = null;
-            document.getElementById('detailPanelEmpty').style.display = 'flex';
-            document.getElementById('detailPanelContent').style.display = 'none';
-            document.querySelectorAll('.project-card-compact').forEach(card => {
-                card.classList.remove('selected');
-            });
         }
 
         // プロジェクト詳細をパネルに表示（Indeed風）
@@ -4048,13 +4861,11 @@
 
             if (page === 'home') {
                 document.getElementById('homePage').classList.add('active');
-                document.querySelectorAll('.nav-item')[0].classList.add('active');
-                // 詳細パネルをリセット
-                resetDetailPanel();
-                renderProjects();
+                document.getElementById('homeNavItem').classList.add('active');
+                renderProjectsGrid();
             } else if (page === 'my') {
                 document.getElementById('myPage').classList.add('active');
-                document.querySelectorAll('.nav-item')[1].classList.add('active');
+                document.getElementById('myNavItem').classList.add('active');
                 renderMyPage();
             } else if (page === 'manager') {
                 document.getElementById('managerPage').classList.add('active');
@@ -4066,7 +4877,6 @@
                 renderApproverApprovals();
             } else if (page === 'notification') {
                 document.getElementById('notificationPage').classList.add('active');
-                // 通知アイコンのインデックスは動的なのでIDで取得
                 const notificationNav = document.querySelector('.notification-badge');
                 if (notificationNav) notificationNav.classList.add('active');
             }
